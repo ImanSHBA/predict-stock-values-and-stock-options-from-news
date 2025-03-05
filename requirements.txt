@@ -1,0 +1,7 @@
+pandas
+streamlit
+plotly
+spacy
+vaderSentiment
+math
+random

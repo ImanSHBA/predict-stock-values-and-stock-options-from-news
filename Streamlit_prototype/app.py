@@ -25,8 +25,6 @@ def classify_sentiment(text):
     else:
         return 0,compound_score  # Neutral
 
-
-# Preprocessing function to clean tweets
 def preprocess_text(text):
     # Remove URLs
     text = re.sub(r'http\S+|www\S+|https\S+', '', text)
@@ -39,8 +37,6 @@ def preprocess_text(text):
     # Remove stopwords, punctuation, and get clean tokens
     tokens = [token.text for token in doc if not token.is_stop and not token.is_punct]
     return " ".join(tokens)  # Return the cleaned text as a single string
-
-import plotly.graph_objects as go
 
 def plot_analysis(company, stock_data, tweet_data,n=30):
     """
@@ -77,9 +73,6 @@ def plot_analysis(company, stock_data, tweet_data,n=30):
 
     comp_tweets['Moving_Avg'] = comp_tweets['Score'].rolling(window=n).mean()
  
-
-
-
     # Line plot for 30-day moving average (Primary Y-axis: Stock Price)
     trace_avg = go.Scatter(
         x=comp_stock["Date"],
@@ -101,9 +94,6 @@ def plot_analysis(company, stock_data, tweet_data,n=30):
     )
 
     return trace_avg, trace_sentiment
-
-
-import plotly.graph_objects as go
 
 def plot_company_tweets(company, tweet_counts):
     """Returns a bar plot for tweet counts of a given company, categorized by sentiment."""
@@ -128,7 +118,6 @@ def plot_company_tweets(company, tweet_counts):
         ))
 
     return traces  # Return a list of traces for subplot usage
-
 
 def plot_company_stock(company, stk):
     """Returns a scatter plot of stock prices with a moving average for a given company."""
@@ -200,8 +189,6 @@ def create_subplots(companies, tweet_counts=None, stock_data=None, plot_type="bo
 
     return fig
 
-
-
 def display_finance(df,date_range):
     """Displays financial stock data with interactive charts."""
     st.header("Financial Statistics")
@@ -215,10 +202,6 @@ def display_finance(df,date_range):
 
     st.write(f"Stock market data for used tickers from Yahoo Finance from {date_range[0]} till {date_range[1]}")
     st.dataframe(df)
-
-
-
-
 
 def display_tweets(df,date_range):
     """Displays tweet statistics with interactive visualizations."""
@@ -238,9 +221,6 @@ def display_tweets(df,date_range):
 
     st.write(f"Tweets for corresponding stock tickers from {date_range[0]} till {date_range[1]}")
     st.dataframe(df)
-
-
-
 
 def display_sentiment(df):
     st.title("Sentiment Analysis")
@@ -283,7 +263,6 @@ def display_sentiment(df):
     elif empty_warning==False:
         st.success("Sentiment Analysis Complete!")
 
-
 def display_analysis(df_tweet,df_finance):
     st.title("Related Analysis")
     st.write("Analysis of the relationship between tweet sentiment and stock prices")
@@ -298,8 +277,8 @@ def display_analysis(df_tweet,df_finance):
 
         # Generate the plot
         fig = go.Figure()
-
-        traces = plot_analysis(company, stock_data=df_finance, tweet_data=df_tweet)
+        avg_number = st.number_input("Moving Average day",1, 365, 30)
+        traces = plot_analysis(company, stock_data=df_finance, tweet_data=df_tweet,n=avg_number)
 
         for trace in traces:
             fig.add_trace(trace)
@@ -325,9 +304,6 @@ def display_analysis(df_tweet,df_finance):
 
         # Display the plot in Streamlit
         st.plotly_chart(fig, use_container_width=True)
-
-
-
    
 def get_sidebar_and_data():
 
@@ -361,7 +337,6 @@ def get_sidebar_and_data():
 
     return df_tweets, df_finance,date_range
 
-
 def main():
     st.title("Sentiment Analysis of Stock Tweets")
 
@@ -376,8 +351,6 @@ def main():
         display_sentiment(df_tweets)
     with tab_analysis:
         display_analysis(df_tweets,df_finance)
-
-
 
 if __name__ == "__main__":
     main()
