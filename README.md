@@ -69,7 +69,7 @@ The interactive dashboard will open in your web browser, allowing you to analyze
 2. **Application fetches & preprocesses data**:
    - Reads financial data from `stock_yfinance_data.csv`
    - Reads tweets from `stock_tweets.csv`
-   - Computes **30-day moving averages** for **both stock prices & sentiment scores**
+   - Computes **n-day moving averages** for **both stock prices & sentiment scores**
 3. **Plotly visualizations** are updated dynamically.
 4. **Users can analyze correlations** between stock price movements & social sentiment.
 
@@ -79,5 +79,5 @@ The interactive dashboard will open in your web browser, allowing you to analyze
 - Compare results across multiple stocks.
 
 ## Contributors
-- **Iman Sherkat Bazazan** (imanshb1379@gmail.com)
+- **Iman Sherkat Bazazan** (imanshb1379@gmail.com) (iman.sherkatbazazan@alumni.esade.edu)
 
